@@ -1,0 +1,41 @@
+#root {
+	display: flex;
+	flex-direction: column;
+	height: 100dvh;
+}
+#root main {
+	flex: 1;
+}
+.form-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+.form-container form {
+	background-color: rgb(220, 220, 220);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 50%;
+	height: 50%;
+	border-radius: 1rem;
+	box-shadow: 1rem 1rem 1rem rgba(255, 255, 255, 0.3);
+	gap: 1rem;
+}
+.form-container form .form-header {
+	color: black;
+	text-transform: uppercase;
+}
+.form-container form input {
+	font-size: 1rem;
+	padding: 0.4rem 0.5rem;
+}
+.form-container form button {
+	padding: 0.4rem 0.5rem;
+	cursor: pointer;
+}
+.form-container .message {
+	color: black;
+}

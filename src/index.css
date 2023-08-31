@@ -1,0 +1,26 @@
+:root {
+	color-scheme: light dark;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
+
+	/* CSS HEX */
+	--xanthous: #ffc15eff;
+	--earth-yellow: #f7b05bff;
+	--sandy-brown: #f7934cff;
+	--tawny: #cc5803ff;
+	--licorice: #1f1300ff;
+
+	/* CSS HSL */
+	--xanthous: hsla(37, 100%, 68%, 1);
+	--earth-yellow: hsla(33, 91%, 66%, 1);
+	--sandy-brown: hsla(25, 91%, 63%, 1);
+	--tawny: hsla(25, 97%, 41%, 1);
+	--licorice: hsla(37, 100%, 6%, 1);
+}
+* {
+	padding: 0;
+	margin: 0;
+}
+body {
+	min-height: 100dvh;
+}

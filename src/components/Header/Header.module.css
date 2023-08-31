@@ -1,0 +1,28 @@
+.appHeader nav ul {
+	display: flex;
+	gap: 1rem;
+	list-style-type: none;
+}
+.appHeader {
+	display: flex;
+	justify-content: space-between;
+	padding: 0.4rem 1rem;
+	align-items: center;
+	background-color: #ffff;
+}
+.appHeader .logo {
+	font-size: 2rem;
+	color: black;
+	text-decoration: none;
+}
+.appHeader nav ul li a {
+	text-decoration: none;
+	color: gray;
+	transition: 0.5s;
+	font-weight: 600;
+	text-transform: capitalize;
+	font-size: 1.5;
+}
+.appHeader nav ul li a:hover {
+	color: black;
+}
