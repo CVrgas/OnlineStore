@@ -13,7 +13,7 @@ export default function Home() {
 
 	return (
 		<main>
-			<div className="container">
+			<div className="home-container">
 				{products.map((item, index) => {
 					return (
 						<ProductCard
