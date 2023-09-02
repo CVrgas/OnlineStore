@@ -26,3 +26,6 @@
 .appHeader nav ul li a:hover {
 	color: black;
 }
+.appHeader p {
+	color: black;
+}

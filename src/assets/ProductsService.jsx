@@ -7,9 +7,16 @@ let products = [
 		stock: 12,
 	},
 ];
-
 export class ProductService {
-	static async getProduct({ id }) {
+	static async getProduct({ option, id }) {
+		if (option) {
+			return products.filter(
+				(item) =>
+					item.name.toLowerCase().includes(option) ||
+					item.description.toLowerCase().includes(option) ||
+					item.price == option
+			);
+		}
 		if (id) {
 			return products.find((product) => product.id == id);
 		}

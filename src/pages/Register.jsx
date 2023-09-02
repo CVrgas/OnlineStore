@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import service from "../assets/LocalService";
 
 export default function Register() {
 	const [form, setForm] = useState({

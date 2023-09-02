@@ -1,22 +1,27 @@
 import React, { useState } from "react";
-import service from "../assets/LocalService";
+import { useLocation, useNavigate } from "react-router-dom";
+import AuthService from "../assets/AuthService";
 
-export default function LogIn() {
-	const [user, setUser] = useState({ username: "", password: "" });
+export default function LogIn({ toggleIsAuth }) {
+	const navigate = useNavigate();
+	const location = useLocation();
+	const [user, setUser] = useState({ email: "", password: "" });
 	const [message, setMessage] = useState("");
 
 	function handleChange(e) {
 		setUser({ ...user, [e.target.name]: e.target.value });
 	}
-	function onSubmit() {
-		service.login(user).then((response) => {
-			console.log(response.status);
+	
+	async function onSubmit() {
+		await AuthService.login(user).then((response) => {
+			toggleIsAuth(response.status);
 			if (response.status === false) {
 				setMessage(response.message);
-				return;
+			} else {
+				if (location.state?.from) {
+					navigate(location.state?.from);
+				}
 			}
-			setMessage("");
-			console.log(document.cookie);
 		});
 	}
 
@@ -29,9 +34,9 @@ export default function LogIn() {
 				>
 					<h1 className="form-header">log In</h1>
 					<input
-						type="text"
-						placeholder="username"
-						name="username"
+						type="email"
+						placeholder="email"
+						name="email"
 						required
 						onChange={handleChange}
 					/>
