@@ -54,42 +54,64 @@ export default function Register() {
 					action=""
 					// onSubmit={onSubmit}
 				>
-					<h1 className="form-header">Register</h1>
-					<input
-						type="text"
-						placeholder="username"
-						name="username"
-						onChange={handleChange}
-						required
-					/>
-					<input
-						type="email"
-						placeholder="Email"
-						name="email"
-						onChange={handleChange}
-						required
-					/>
-					<input
-						type="password"
-						placeholder="password"
-						name="password"
-						onChange={handleChange}
-						required
-					/>
-					<input
-						type="password"
-						placeholder="confirm password"
-						name="passwordConfirm"
-						onChange={handleChange}
-						required
-					/>
+					<h1 className="form-header">Signup</h1>
+					<div className="input-element">
+						<input
+							type="text"
+							name="username"
+							placeholder=""
+							id="username"
+							required
+							onChange={handleChange}
+						/>
+						<label htmlFor="username">username</label>
+						<i class="fa-solid fa-user"></i>
+					</div>
+					<div className="input-element">
+						<input
+							type="email"
+							name="email"
+							placeholder=""
+							id="email"
+							required
+							onChange={handleChange}
+						/>
+						<label htmlFor="email">email</label>
+						<i class="fa-solid fa-envelope"></i>
+					</div>
+					<div className="input-element">
+						<input
+							type="password"
+							name="password"
+							placeholder=""
+							id="password"
+							required
+							onChange={handleChange}
+						/>
+						<label htmlFor="password">password</label>
+						<i class="fa-solid fa-lock"></i>
+					</div>
+					<div className="input-element">
+						<input
+							type="password"
+							name="passwordConfirm"
+							placeholder=""
+							id="passwordConfirm"
+							required
+							onChange={handleChange}
+						/>
+						<label htmlFor="passwordConfirm">confirm password</label>
+						<i class="fa-solid fa-lock"></i>
+					</div>
+					<p className="alert-message">{message}</p>
 					<button
+						className="submit-button"
 						type="button"
 						onClick={onSubmit}
 					>
-						submit
+						<span>Sign up</span>
+						<i class="fa-solid fa-chevron-right"></i>
 					</button>
-					{message ? <p className="message">{message}</p> : null}
 				</form>
 			</div>
 		</main>
