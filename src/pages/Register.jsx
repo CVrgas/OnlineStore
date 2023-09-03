@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import ApiService from "../assets/ApiService";
+import AuthService from "../assets/AuthService";
 
 export default function Register() {
 	const [form, setForm] = useState({
@@ -7,40 +9,51 @@ export default function Register() {
 		password: "",
 		passwordConfirm: "",
 	});
+	const apiService = new ApiService(
+		"https://localhost:7038/OnlineStore/api/user/"
+	);
 
 	const [message, setMessage] = useState("");
+
 	function handleChange(e) {
-		setForm({ ...form, [e.target.name]: e.target.value });
+		setForm((prevForm) => ({ ...prevForm, [e.target.name]: e.target.value }));
 	}
 
-	function onSubmit() {
+	async function onSubmit() {
 		const isValid = validateForm();
 		if (isValid.status === false) {
 			setMessage(isValid.message);
-			return;
-		}
-		setMessage("");
-		service.createAccount(form).then((response) => {
-			if (response.status === false) {
-				setMessage(response.message);
+		} else {
+			setMessage("");
+			const request = {
+				name: form.username,
+				email: form.email,
+				password: form.password,
+			};
+			try {
+				const user = await apiService.signup(request);
+				// working on registration
+				console.log(user);
+			} catch (error) {
+				console.error(error);
 			}
-		});
+		}
 	}
-
+	// 123123123123
 	function validateForm() {
-		if (form.username === "" || form.username === " ") {
+		if (form.username.trim() === "") {
 			return { status: false, message: "invalid username" };
 		}
 		if (!form.email.includes("@")) {
 			return { status: false, message: "invalid email" };
 		}
 		if (form.password.length <= 7) {
-			return { status: false, message: "password to short" };
+			return { status: false, message: "password too short" };
 		}
 		if (form.passwordConfirm !== form.password) {
 			return {
 				status: false,
-				message: "password confirmation doesnt match password",
+				message: "password confirmation doesn't match password",
 			};
 		}
 
@@ -51,8 +64,8 @@ export default function Register() {
 		<main>
 			<div className="form-container">
 				<form
-					action=""
-					// onSubmit={onSubmit}
+					action="https://example.com"
+					onSubmit={onSubmit}
 				>
 					<h1 className="form-header">Signup</h1>
 					<div className="input-element">
@@ -65,7 +78,7 @@ export default function Register() {
 							onChange={handleChange}
 						/>
 						<label htmlFor="username">username</label>
-						<i class="fa-solid fa-user"></i>
+						<i className="fas fa-user"></i>
 					</div>
 					<div className="input-element">
 						<input
@@ -77,7 +90,7 @@ export default function Register() {
 							onChange={handleChange}
 						/>
 						<label htmlFor="email">email</label>
-						<i class="fa-solid fa-envelope"></i>
+						<i className="fas fa-envelope"></i>
 					</div>
 					<div className="input-element">
 						<input
@@ -89,7 +102,7 @@ export default function Register() {
 							onChange={handleChange}
 						/>
 						<label htmlFor="password">password</label>
-						<i class="fa-solid fa-lock"></i>
+						<i className="fas fa-lock"></i>
 					</div>
 					<div className="input-element">
 						<input
@@ -101,8 +114,14 @@ export default function Register() {
 							onChange={handleChange}
 						/>
 						<label htmlFor="passwordConfirm">confirm password</label>
-						<i class="fa-solid fa-lock"></i>
+						<i className="fas fa-lock"></i>
 					</div>
+					<a
+						href="https://example.com"
+						className="forgot-label"
+					>
+						Already registered?
+					</a>
 					<p className="alert-message">{message}</p>
 					<button
 						className="submit-button"
@@ -110,7 +129,7 @@ export default function Register() {
 						onClick={onSubmit}
 					>
 						<span>Sign up</span>
-						<i class="fa-solid fa-chevron-right"></i>
+						<i className="fas fa-chevron-right"></i>
 					</button>
 				</form>
 			</div>

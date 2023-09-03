@@ -17,7 +17,9 @@ class AuthService {
 					},
 					body: JSON.stringify(user),
 				}
-			);
+			).catch((error) => {
+				return { status: false, message: error.message };
+			});
 
 			if (!response.ok) {
 				return { status: false, message: "Network response was not okay" };
@@ -29,6 +31,7 @@ class AuthService {
 				const token = data.token;
 				this.isAuthenticated = true;
 				Cookies.set("token", token);
+				Navigate("/");
 				return { status: true, message: "validated", token: token };
 				// Add your logic here based on the response
 			} else {

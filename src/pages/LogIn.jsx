@@ -1,29 +1,36 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AuthService from "../assets/AuthService";
+import ApiService from "../assets/ApiService";
 
-export default function LogIn({ toggleIsAuth }) {
+export default function Login({ toggleIsAuth }) {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [user, setUser] = useState({ email: "", password: "" });
 	const [message, setMessage] = useState("");
-	
+	const apiService = new ApiService(
+		"https://localhost:7038/OnlineStore/api/user/authenticate"
+	);
 
 	function handleChange(e) {
-		setUser({ ...user, [e.target.name]: e.target.value });
+		setUser((prevUser) => ({ ...prevUser, [e.target.name]: e.target.value }));
 	}
 
 	async function onSubmit() {
-		await AuthService.login(user).then((response) => {
-			toggleIsAuth(response.status);
-			if (response.status === false) {
-				setMessage(response.message);
-			} else {
-				if (location.state?.from) {
-					navigate(location.state?.from);
-				}
-			}
-		});
+		try {
+			const token = await apiService.login(user);
+			console.log(token);
+		} catch (error) {
+			console.error(error);
+		}
+		// await AuthService.login(user).then((response) => {
+		// 	console.log(response);
+		// 	toggleIsAuth(response.status);
+		// 	if (response.status === false) {
+		// 		setMessage(response.message);
+		// 		return;
+		// 	}
+		// });
 	}
 
 	return (
@@ -33,7 +40,6 @@ export default function LogIn({ toggleIsAuth }) {
 					action=""
 					onSubmit={onSubmit}
 				>
-					
 					<h1 className="form-header">login</h1>
 					<div className="input-element">
 						<input
@@ -59,12 +65,14 @@ export default function LogIn({ toggleIsAuth }) {
 						<label htmlFor="password">Password</label>
 						<i className="fa-solid fa-lock"></i>
 					</div>
+
 					<a
 						href="#"
 						className="forgot-label"
 					>
 						Forgot password?
 					</a>
+					<p className="alert-message">{message}</p>
 
 					<button
 						className="submit-button"
@@ -74,7 +82,6 @@ export default function LogIn({ toggleIsAuth }) {
 						<span>Log in</span>
 						<i className="fa-solid fa-chevron-right"></i>
 					</button>
-					{message ? <p className="message">{message}</p> : null}
 				</form>
 			</div>
 		</main>

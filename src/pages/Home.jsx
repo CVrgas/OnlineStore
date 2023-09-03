@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { ProductService } from "../assets/ProductsService";
 import ProductCard from "../components/ProductCard/ProductCard";
+import DetailedProduct from "../components/DetailedProduct/DetailedProduct";
 
 export default function Home() {
 	const [products, setProducts] = useState([]);
 	const [search, setSearch] = useState("");
+	const [selected, setSelected] = useState();
+
 	async function TestApi() {
 		const token =
 			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJDcmlzdGlhblZyZ2FzQGdtYWlsLmNvbSIsImp0aSI6IjNjZjNjYmRjLWE3YmMtNDUwMy1hN2YwLTkyM2MxNjJiOWE1OSIsImlhdCI6IjkvMi8yMDIzIDg6MjQ6MDMgUE0iLCJleHAiOjE2OTM2ODk4NDMsImlzcyI6Ik9ubGluZVN0b3JlQXBpIiwiYXVkIjoiT25saW5lU3RvcmVDbGllbnQifQ.m4Ns1F5TrRmyE8QjpZBYSG20WEljNiYeGWqTns3lQiE";
@@ -24,7 +27,6 @@ export default function Home() {
 				console.error(error);
 			});
 	}
-
 	function handleChange(e) {
 		const input = e.target.value;
 		if (input === "") {
@@ -43,6 +45,14 @@ export default function Home() {
 			setProducts(response);
 		});
 	}
+	function handleSelection(item) {
+		if (item) {
+			setSelected(item);
+		}
+	}
+	function UnSelect() {
+		setSelected("");
+	}
 
 	useEffect(() => {
 		getProduct();
@@ -53,14 +63,31 @@ export default function Home() {
 
 	return (
 		<main>
-			<div className="home-container">
+			{selected ? (
+				<DetailedProduct
+					product={selected}
+					unselect={UnSelect}
+				></DetailedProduct>
+			) : null}
+			<div className="search-container">
+				<i class="fa-solid fa-magnifying-glass"></i>
 				<input
 					type="text"
 					placeholder="Search..."
 					onChange={(e) => handleChange(e)}
 				/>
 			</div>
-			<ProductCard></ProductCard>
+			<div className="product-container">
+				{products.map((item, index) => {
+					return (
+						<ProductCard
+							key={item.id}
+							product={item}
+							select={handleSelection}
+						></ProductCard>
+					);
+				})}
+			</div>
 		</main>
 	);
 }
