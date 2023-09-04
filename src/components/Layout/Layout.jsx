@@ -14,7 +14,7 @@ export default function Layout({
 				setIsAuthenticated={setIsAuthenticated}
 			></Header>
 			{children}
-			<Footer></Footer>
+			{/* <Footer></Footer> */}
 		</>
 	);
 }

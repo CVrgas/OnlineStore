@@ -14,7 +14,7 @@ export default function SubHeader({ setSearchQuery, search }) {
 
 	return (
 		<div className={styles.SearchContainer}>
-			<h1>Product List</h1>
+			<div></div>
 			<div className={styles.searchBar}>
 				<input
 					type="text"
@@ -25,10 +25,12 @@ export default function SubHeader({ setSearchQuery, search }) {
 					className={styles.searchButton}
 					onClick={search}
 				>
-					Search
+					<i className="fa-solid fa-magnifying-glass"></i>
 				</button>
 			</div>
-			<button className={styles.addButton}>Add New Product</button>
+			<button className={styles.addButton}>
+				<i class="fa-solid fa-plus"></i> New Product
+			</button>
 		</div>
 	);
 }

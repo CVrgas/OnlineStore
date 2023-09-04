@@ -1,3 +1,6 @@
+import axios from "axios";
+import TokenService from "./TokenService";
+
 let products = [
 	{
 		id: 1,
@@ -575,38 +578,93 @@ let products = [
 	},
 ];
 export default class ProductService {
-	async getProduct({ option, id }) {
-		if (option) {
-			return products.filter(
-				(item) =>
-					item.title.toLowerCase().includes(option.toLowerCase()) ||
-					item.description.toLowerCase().includes(option.toLowerCase()) ||
-					item.price == option
-			);
-		}
-		if (id) {
-			return products.find((product) => product.id == id);
-		}
-		return products;
+	constructor(ApiUrl) {
+		this.ApiUrl = ApiUrl;
+		this.tokenService = new TokenService();
 	}
-	async createProduct(newProduct) {
-		return products.push(newProduct);
-	}
-	async updateProduct({ id, updated }) {
-		const index = products.findIndex((item) => item.id == id);
-		if (index === -1) {
-			return;
+
+	async fetchData(options = {}) {
+		const token = this.tokenService.getToken();
+		if (!token) return;
+		try {
+			const response = await axios.get(this.ApiUrl, {
+				...options,
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			// if (response.status !== 200) {
+			// 	throw new Error("response not ok");
+			// }
+			return response.data;
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status === 401
+			) {
+				const token = this.tokenService.getToken();
+				if (token) {
+					this.tokenService.removeToken();
+				}
+				throw new Error("Unauthorized: Please login again.");
+			} else {
+				throw new Error("Error processing the request");
+			}
 		}
-		products[index] = {
-			...products[index],
-			...updated,
-		};
 	}
-	async delete({ id }) {
-		const index = products.findIndex((item) => item.id == id);
-		if (index === -1) {
-			return;
+	async addData(data) {
+		const token = this.tokenService.getToken();
+		if (!token) return;
+		try {
+			console.log(data);
+			const response = await axios.post(this.ApiUrl, data, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			if (response.status !== 200) {
+				throw new Error("response not ok");
+			}
+			return response.data;
+		} catch (error) {
+			throw new Error("Error processing the request");
 		}
-		products.slice(index, 1);
+	}
+	async updateData(id, data) {
+		const token = this.tokenService.getToken();
+		const url = `${this.ApiUrl}/${id}`;
+		console.log("url: ", url);
+		if (!token) return;
+		try {
+			const response = await axios.put(url, data, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			if (response.status !== 200) {
+				throw new Error("response not ok");
+			}
+			return response.data;
+		} catch (error) {
+			throw new Error("Error processing the request");
+		}
+	}
+	async deleteData(id) {
+		const token = this.tokenService.getToken();
+		const url = `${this.ApiUrl}/${id}`;
+		try {
+			const response = await axios.delete(this.ApiUrl, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			if (response.status !== 200) {
+				throw new Error("response was not ok");
+			}
+			return response.data;
+		} catch (error) {
+			throw new Error("Error Processing request: ", error.message);
+		}
 	}
 }

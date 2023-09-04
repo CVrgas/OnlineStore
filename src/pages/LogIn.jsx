@@ -21,12 +21,13 @@ export default function Login({ toggleIsAuth }) {
 			const token = await apiService.login(user);
 			if (token) {
 				tokenService.setToken(token);
-				toggleIsAuth(true)
+				toggleIsAuth(true);
 				navigate("/");
 			} else {
 				console.log("invalid token");
 			}
 		} catch (error) {
+			setMessage(error.message);
 			console.error(error);
 		}
 	}

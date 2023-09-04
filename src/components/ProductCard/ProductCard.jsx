@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Styles from "./ProductCard.module.css";
+import SubHeader from "../SubHeader/SubHeader";
 
-export default function Card({ products, select }) {
+export default function Card({
+	products,
+	select,
+	setSearchQuery,
+	searchProduct,
+}) {
 	const maxItemPerPage = 8;
 	const totalPages = Math.ceil(products.length / maxItemPerPage);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -15,6 +21,11 @@ export default function Card({ products, select }) {
 
 	return (
 		<>
+			<SubHeader
+				setSearchQuery={setSearchQuery}
+				search={searchProduct}
+			></SubHeader>
+
 			<div className={Styles.products}>
 				<div className={Styles.productsList}>
 					{itemToShow.map((product, i) => {
@@ -25,14 +36,18 @@ export default function Card({ products, select }) {
 								onClick={() => select(product)}
 							>
 								<div className={Styles.image}>
-									<img
-										src={product.thumbnail}
-										alt=""
-									/>
+									{product.thumbnail ? (
+										<img
+											src={product.thumbnail}
+											alt=""
+										/>
+									) : (
+										<h1>No image Available</h1>
+									)}
 								</div>
 								<div className={Styles.body}>
 									<div className={Styles.brandTitle}>
-										<h5>{product.title}</h5>
+										<h5>{product.name}</h5>
 										<small>{product.brand}</small>
 									</div>
 									<p className={Styles.description}>{product.description}</p>
@@ -44,7 +59,7 @@ export default function Card({ products, select }) {
 									</h3>
 
 									<small className={Styles.stock}>
-										{product.stock} in stock
+										In stock ({product.stock} available)
 									</small>
 								</div>
 							</div>
@@ -56,7 +71,7 @@ export default function Card({ products, select }) {
 						onClick={() => setCurrentPage(currentPage - 1)}
 						disabled={currentPage === 1}
 					>
-						Previous
+						<i class="fa-solid fa-chevron-left"></i>
 					</button>
 					<span>
 						Page {currentPage} of {totalPages}
@@ -65,7 +80,7 @@ export default function Card({ products, select }) {
 						onClick={() => setCurrentPage(currentPage + 1)}
 						disabled={currentPage === totalPages}
 					>
-						Next
+						<i class="fa-solid fa-chevron-right"></i>
 					</button>
 				</div>
 			</div>

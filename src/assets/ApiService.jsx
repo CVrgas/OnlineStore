@@ -33,17 +33,4 @@ export default class ApiService {
 			throw new Error(`Signup falied: ${error.message}`);
 		}
 	}
-
-	async fetchData(endpoint, options = {}) {
-		const url = `${this.ApiUrl}/${endpoint}`;
-		try {
-			const response = await fetch(url, options);
-			if (!response.ok) {
-				throw new Error("response not ok");
-			}
-			return response.json();
-		} catch (error) {
-			throw new Error(`Error fetching data: ${error.message}`);
-		}
-	}
 }

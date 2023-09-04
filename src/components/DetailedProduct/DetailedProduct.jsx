@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import Styles from "./DetailedProduct.module.css";
+import ProductService from "../../assets/ProductsService";
 
 export default function DetailedProduct({ product, unselect }) {
 	const [activeImg, setActiveImg] = useState("");
+	const pService = new ProductService(
+		"https://localhost:7038/OnlineStore/api/product"
+	);
 
 	const handleActive = (e) => {
 		const url = e.target.id;
@@ -13,37 +17,32 @@ export default function DetailedProduct({ product, unselect }) {
 			<div className={Styles.wrapper}>
 				<div className={Styles.images}>
 					<img
-						src={activeImg || product.images[0]}
+						src={
+							activeImg ||
+							(product.images && product.images[0]) ||
+							"https://as1.ftcdn.net/v2/jpg/04/62/93/66/1000_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg"
+						}
 						alt="images of the product"
 					/>
-					<form className={Styles.options}>
-						{product.images.map((url, index) => {
-							if (index === 0) {
+					{
+						<form className={Styles.options}>
+							{product.imagesUrl.map((url, index) => {
 								return (
 									<input
 										key={index}
 										type="radio"
 										name="image-options"
 										id={url}
-										defaultChecked
+										defaultChecked={index === 0}
 										onClick={handleActive}
 									/>
 								);
-							}
-							return (
-								<input
-									key={index}
-									type="radio"
-									name="image-options"
-									id={url}
-									onClick={handleActive}
-								/>
-							);
-						})}
-					</form>
+							})}
+						</form>
+					}
 				</div>
 				<div className={Styles.body}>
-					<h5>{product.title}</h5>
+					<h5>{product.name}</h5>
 					<hr />
 					<p>{product.description}</p>
 

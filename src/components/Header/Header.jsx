@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 import TokenService from "../../assets/TokenService";
-
-export default function Header({ isAuthenticated, setIsAuthenticated }) {
+import some from "../../assets/logo/logo_transparent.png";
+export default function Header({
+	isAuthenticated,
+	setIsAuthenticated,
+	setSearchQuery,
+	search,
+}) {
 	const tokenService = new TokenService();
 
 	const navigate = useNavigate();
@@ -13,6 +18,16 @@ export default function Header({ isAuthenticated, setIsAuthenticated }) {
 		setIsAuthenticated(false);
 		navigate("/login");
 	};
+	//subbar
+	const [input, setInput] = useState("");
+
+	function handleChange(e) {
+		const searchQuery = e.target.value;
+		if (searchQuery.trim() === "") {
+			search();
+		}
+		setSearchQuery(searchQuery);
+	}
 
 	return (
 		<>
@@ -21,13 +36,16 @@ export default function Header({ isAuthenticated, setIsAuthenticated }) {
 					to="/"
 					className={styles.logo}
 				>
-					Logo
+					AllStore
 				</Link>
+
 				<nav>
 					<ul>
 						{isAuthenticated ? (
 							<li>
-								<button onClick={handleLogout}>Logout</button>
+								<button onClick={handleLogout}>
+									<i className="fa-solid fa-right-from-bracket"></i> Logout
+								</button>
 							</li>
 						) : (
 							<>
@@ -35,7 +53,12 @@ export default function Header({ isAuthenticated, setIsAuthenticated }) {
 									<Link to="/login">Login</Link>
 								</li>
 								<li>
-									<Link to="/register">Signup</Link>
+									<Link
+										to="/register"
+										className={styles.signupBtn}
+									>
+										Signup
+									</Link>
 								</li>
 							</>
 						)}

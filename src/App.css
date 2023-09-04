@@ -13,33 +13,34 @@
 	height: 100%;
 }
 .form-container form {
-	background-color: rgb(220, 220, 220);
+	background-color: var(--white);
 	position: relative;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 600px;
+	width: 500px;
 	height: 700px;
-	border-radius: 1rem;
-	box-shadow: 1rem 1rem 1rem rgba(255, 255, 255, 0.3);
+	border-radius: 0.5rem;
+	box-shadow: 20px 20px 0px #0d8b96, -20px -20px 0px #11bbcc;
 	animation: 1s show;
 }
 .form-container form::before {
 	content: "";
 	inset: 0;
 	position: absolute;
-	background-color: lightsteelblue;
+	background-color: var(--skyblue);
 	border-radius: 3rem 0rem;
 	transform: rotate(145deg);
-	translate: -210px 0;
+	translate: -410px 0;
+	box-shadow: -150px -150px 0px color-mix(in srgb, var(--white), var(--skyblue));
 }
 .form-container form .form-header {
 	color: black;
 	text-transform: uppercase;
 	border-bottom: 2px solid rgb(0, 195, 255);
-	margin: 2rem 0;
+	margin-bottom: 5rem;
 	z-index: 999;
 }
 
@@ -66,7 +67,7 @@
 }
 .form-container form .input-element i {
 	font-size: 1rem;
-	color: black;
+	color: var(--teal);
 	top: 0;
 	left: 0px;
 	height: 100%;
@@ -100,24 +101,30 @@
 	border-bottom: 2px solid rgb(0, 195, 255);
 }
 .form-container form .forgot-label {
-	color: rgb(0, 195, 255);
+	color: rgba(0, 0, 0, 0.7);
+	font-weight: 600;
 	z-index: 999;
+	align-self: flex-end;
+	margin-top: 1rem;
+	padding-right: 6rem;
+}
+.form-container form .forgot-label:hover {
+	color: rgba(0, 0, 0, 1);
 }
 .form-container form .submit-button {
 	position: relative;
 	overflow: hidden;
-	margin: 3rem 0;
+	margin-top: 6rem;
 	width: 250px;
 	height: 50px;
 	border-radius: 50px;
 	display: flex;
 	align-items: center;
-	justify-content: flex-start;
-	gap: 1rem;
+	justify-content: center;
+	gap: 2rem;
 	padding: 1rem;
 	font-size: 1.2rem;
 	font-weight: 700;
-	letter-spacing: 1px;
 	text-transform: uppercase;
 	cursor: pointer;
 	background-color: white;
@@ -127,6 +134,7 @@
 }
 .form-container form .submit-button span {
 	z-index: 10;
+	transition: 1s;
 }
 .form-container form .submit-button::before {
 	position: absolute;
@@ -142,9 +150,11 @@
 	transform: translateX(-10px);
 	transition: 1s;
 }
+.form-container form .submit-button:hover > span,
 .form-container form .submit-button:hover > i {
-	transform: translateX(80px);
+	transform: translateX(55px);
 	transition: 0.4s;
+	color: var(--orange);
 }
 .form-container form .submit-button:hover::before {
 	transform: translateX(0);
@@ -158,6 +168,7 @@
 	z-index: 999;
 	margin: 1rem;
 	min-height: 1rem;
+	padding: 0 4rem;
 }
 @keyframes show {
 	from {
@@ -172,4 +183,13 @@
 	flex-wrap: wrap;
 	gap: 2rem;
 	padding: 2rem;
+}
+@media screen and (max-width: 600px) {
+	.form-container form {
+		border-radius: 0;
+	}
+	.form-container form .submit-button {
+		justify-content: center;
+		align-items: center;
+	}
 }

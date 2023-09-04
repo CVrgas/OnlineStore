@@ -1,19 +1,29 @@
+.appHeader {
+	display: flex;
+	justify-content: space-between;
+	padding: 1rem 10%;
+	align-items: center;
+	background-color: var(--white);
+
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
 .appHeader nav ul {
 	display: flex;
 	gap: 1rem;
 	list-style-type: none;
 }
-.appHeader {
-	display: flex;
-	justify-content: space-between;
-	padding: 0.4rem 1rem;
-	align-items: center;
-	background-color: lightgray;
-}
+
 .appHeader .logo {
-	font-size: 2rem;
+	font-size: 2.5rem;
 	color: black;
 	text-decoration: none;
+	color: var(--teal);
+	max-width: 100px;
+	max-height: 50px;
+}
+.appHeader .logo img {
+	width: 100%;
+	transform: scale(2);
 }
 .appHeader nav ul {
 	display: flex;
@@ -21,27 +31,32 @@
 	align-items: center;
 }
 .appHeader nav ul li a,
-.appHeader button {
+.appHeader nav ul li button {
 	text-decoration: none;
-	color: gray;
+	color: var(--teal);
 	transition: 0.3s;
-	font-weight: 400;
+	font-weight: 500;
 	text-transform: capitalize;
-	font-size: 1.5;
-
 	background-color: transparent;
 	border: 0;
-	font-size: 1.5rem;
+	font-size: 1.2rem;
+	cursor: pointer;
+	padding: 0.3rem 0.7rem;
 }
 .appHeader nav ul li a:hover,
-.appHeader button:hover {
-	color: black;
+.appHeader nav ul li button:hover {
+	background-color: color-mix(in srgb, var(--teal) 20%, white);
+}
+.appHeader .signupBtn {
+	border: 2px solid var(--teal);
+}
+.appHeader .signupBtn:hover {
+	background-color: var(--teal);
+	color: var(--white);
+	text-decoration: none;
 }
 .appHeader p {
 	color: black;
 }
-.appHeader button {
-	/* background-color: transparent;
-	border: 0;
-	font-size: 1rem; */
-}
+
+/* subbar */

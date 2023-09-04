@@ -8,15 +8,21 @@ export default function Home() {
 	const [products, setProducts] = useState([]);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [selected, setSelected] = useState();
-	const pService = new ProductService();
+	const pService = new ProductService(
+		"https://localhost:7038/OnlineStore/api/product"
+	);
 
 	async function searchProduct() {
-		const response = await pService.getProduct({ option: searchQuery });
-		if (response) {
-			setProducts(response);
+		try {
+			const response = await pService.fetchData();
+			if (response) {
+				console.log(response);
+				setProducts(response);
+			}
+		} catch (error) {
+			console.error(error.message);
 		}
 	}
-
 	function handleSelection(item) {
 		if (item) {
 			setSelected(item);
@@ -30,11 +36,6 @@ export default function Home() {
 	}, []);
 	return (
 		<main>
-			<SubHeader
-				setSearchQuery={setSearchQuery}
-				search={searchProduct}
-			></SubHeader>
-
 			{selected ? (
 				<DetailedProduct
 					product={selected}
