@@ -1,3 +1,17 @@
+.productsList {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	row-gap: 2rem;
+}
+
+.products {
+	margin-top: 4rem;
+	padding: 1rem 10%;
+	display: flex;
+	flex-direction: column;
+	gap: 5rem;
+}
+
 .card {
 	width: 300px;
 	height: 400px;
@@ -9,13 +23,16 @@
 	box-shadow: 5px 5px 15px lightgray;
 	cursor: pointer;
 }
+
 .image {
 }
+
 .image img {
 	width: 100%;
 	height: 200px;
 	border-bottom: 1px solid lightgray;
 }
+
 .body {
 	display: flex;
 	flex-direction: column;
@@ -23,14 +40,17 @@
 	flex: 1;
 	padding-top: 0.5rem;
 }
+
 .body .brandTitle,
 .body .price {
 	padding: 0 1rem;
 }
+
 .body .brandTitle h5 {
 	font-weight: 600;
 	font-size: 1.2rem;
 }
+
 .body .description {
 	text-align: start;
 	padding: 0 1rem;
@@ -40,12 +60,65 @@
 	line-clamp: 2;
 	-webkit-box-orient: vertical;
 }
+
 .body .stock {
 	justify-self: flex-end;
 	border-top: 1px solid lightgray;
 	padding: 0.5rem;
 	background-color: rgb(247, 247, 247);
 }
+
 .card:hover .body .brandTitle h5 {
 	color: lightseagreen;
+}
+
+.navigation {
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.navigation button {
+	width: 100px;
+	height: 30px;
+	border: 0;
+	background-color: lightseagreen;
+	font-size: 1.1rem;
+	color: white;
+	cursor: pointer;
+}
+
+.navigation button:disabled {
+	background-color: white;
+	color: lightseagreen;
+	border: 1px solid lightseagreen;
+	cursor: not-allowed;
+}
+
+@media (max-width: 1200px) {
+	.productsList {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+	.products {
+		padding: 1rem 4rem;
+	}
+}
+
+@media (max-width: 992px) {
+	.productsList {
+		grid-template-columns: 1fr 1fr;
+	}
+	.products {
+		padding: 1rem 10%;
+	}
+}
+
+@media (max-width: 768px) {
+	.productsList {
+		grid-template-columns: 1fr;
+	}
+	.card {
+		width: 100%;
+		height: auto;
+	}
 }

@@ -6,30 +6,6 @@
 #root main {
 	flex: 1;
 }
-
-.search-container {
-	margin: 1rem auto;
-	width: max-content;
-	padding: 0 1rem;
-	border-radius: 50px;
-	background-color: lightseagreen;
-}
-.search-container input {
-	font-size: 1.3rem;
-	padding: 0.3rem;
-	padding-left: 0.5rem;
-	background-color: transparent;
-	border: 0;
-	outline: 0;
-	color: black;
-}
-.search-container input::placeholder {
-	color: black;
-}
-.search-container i {
-	margin: auto 0;
-	font-size: 1.3rem;
-}
 .form-container {
 	display: flex;
 	justify-content: center;

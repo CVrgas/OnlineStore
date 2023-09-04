@@ -574,13 +574,13 @@ let products = [
 		],
 	},
 ];
-export class ProductService {
-	static async getProduct({ option, id }) {
+export default class ProductService {
+	async getProduct({ option, id }) {
 		if (option) {
 			return products.filter(
 				(item) =>
-					item.name.toLowerCase().includes(option) ||
-					item.description.toLowerCase().includes(option) ||
+					item.title.toLowerCase().includes(option.toLowerCase()) ||
+					item.description.toLowerCase().includes(option.toLowerCase()) ||
 					item.price == option
 			);
 		}
@@ -589,10 +589,10 @@ export class ProductService {
 		}
 		return products;
 	}
-	static async createProduct(newProduct) {
+	async createProduct(newProduct) {
 		return products.push(newProduct);
 	}
-	static async updateProduct({ id, updated }) {
+	async updateProduct({ id, updated }) {
 		const index = products.findIndex((item) => item.id == id);
 		if (index === -1) {
 			return;
@@ -602,7 +602,7 @@ export class ProductService {
 			...updated,
 		};
 	}
-	static async delete({ id }) {
+	async delete({ id }) {
 		const index = products.findIndex((item) => item.id == id);
 		if (index === -1) {
 			return;

@@ -1,31 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { ProductService } from "../assets/ProductsService";
 import ProductCard from "../components/ProductCard/ProductCard";
 import DetailedProduct from "../components/DetailedProduct/DetailedProduct";
+import SubHeader from "../components/SubHeader/SubHeader";
+import ProductService from "../assets/ProductsService";
 
 export default function Home() {
 	const [products, setProducts] = useState([]);
-	const [search, setSearch] = useState("");
+	const [searchQuery, setSearchQuery] = useState("");
 	const [selected, setSelected] = useState();
+	const pService = new ProductService();
 
-	function handleChange(e) {
-		const input = e.target.value;
-		if (input === "") {
-			getProduct();
-			return;
+	async function searchProduct() {
+		const response = await pService.getProduct({ option: searchQuery });
+		if (response) {
+			setProducts(response);
 		}
-		setSearch(input);
 	}
-	async function handleSearch() {
-		await ProductService.getProduct({ option: search }).then((response) => {
-			setProducts(response);
-		});
-	}
-	async function getProduct() {
-		await ProductService.getProduct({}).then((response) => {
-			setProducts(response);
-		});
-	}
+
 	function handleSelection(item) {
 		if (item) {
 			setSelected(item);
@@ -34,41 +25,27 @@ export default function Home() {
 	function UnSelect() {
 		setSelected("");
 	}
-
 	useEffect(() => {
-		getProduct();
+		searchProduct();
 	}, []);
-	useEffect(() => {
-		handleSearch();
-	}, [search]);
-
 	return (
 		<main>
+			<SubHeader
+				setSearchQuery={setSearchQuery}
+				search={searchProduct}
+			></SubHeader>
+
 			{selected ? (
 				<DetailedProduct
 					product={selected}
 					unselect={UnSelect}
 				></DetailedProduct>
 			) : null}
-			<div className="search-container">
-				<i className="fa-solid fa-magnifying-glass"></i>
-				<input
-					type="text"
-					placeholder="Search..."
-					onChange={(e) => handleChange(e)}
-				/>
-			</div>
-			<div className="product-container">
-				{products.map((item, index) => {
-					return (
-						<ProductCard
-							key={item.id}
-							product={item}
-							select={handleSelection}
-						></ProductCard>
-					);
-				})}
-			</div>
+
+			<ProductCard
+				products={products}
+				select={handleSelection}
+			></ProductCard>
 		</main>
 	);
 }
