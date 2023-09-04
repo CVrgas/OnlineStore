@@ -7,13 +7,18 @@ export default class ApiService {
 	async login(user) {
 		try {
 			const response = await axios.post(`${this.ApiUrl}`, user);
+
+			if (response.status === 404) {
+				throw new Error("email or password invalid");
+			}
+
 			if (response.status === 200 && response.data.token) {
 				return response.data.token;
 			} else {
 				throw new Error("invalid response");
 			}
 		} catch (error) {
-			throw new Error(`Login failed: ${error.message}`);
+			throw new Error(`Login failed: ${error}`);
 		}
 	}
 	async signup(request) {
@@ -28,7 +33,7 @@ export default class ApiService {
 			throw new Error(`Signup falied: ${error.message}`);
 		}
 	}
-    
+
 	async fetchData(endpoint, options = {}) {
 		const url = `${this.ApiUrl}/${endpoint}`;
 		try {

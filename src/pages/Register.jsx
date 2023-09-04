@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ApiService from "../assets/ApiService";
-import AuthService from "../assets/AuthService";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
 	const [form, setForm] = useState({
@@ -9,6 +9,7 @@ export default function Register() {
 		password: "",
 		passwordConfirm: "",
 	});
+	const navigate = useNavigate();
 	const apiService = new ApiService(
 		"https://localhost:7038/OnlineStore/api/user/"
 	);
@@ -32,14 +33,15 @@ export default function Register() {
 			};
 			try {
 				const user = await apiService.signup(request);
-				// working on registration
-				console.log(user);
+				if (user) {
+					navigate("/login");
+				}
 			} catch (error) {
 				console.error(error);
 			}
 		}
 	}
-	// 123123123123
+
 	function validateForm() {
 		if (form.username.trim() === "") {
 			return { status: false, message: "invalid username" };

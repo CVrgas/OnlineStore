@@ -6,28 +6,25 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import ProtectedRoutes from "./ProtectedRoutes";
 import { useEffect, useState } from "react";
-import AuthService from "./assets/AuthService";
+import TokenService from "./assets/TokenService";
 
 function App() {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const tokenService = new TokenService();
 
-	const toggleIsAuth = (state) => {
-		setIsAuthenticated(state);
-	};
-	const handleLogout = async () => {
-		AuthService.logout();
-		setIsAuthenticated(AuthService.isAuthenticated);
-	};
 	useEffect(() => {
-		setIsAuthenticated(AuthService.isAuthenticated);
-	});
+		const token = tokenService.getToken();
+		if (token) {
+			setIsAuthenticated(true);
+		}
+	}, []);
 
 	return (
 		<>
 			<BrowserRouter>
 				<Layout
 					isAuthenticated={isAuthenticated}
-					handleLogout={handleLogout}
+					setIsAuthenticated={setIsAuthenticated}
 				>
 					<Routes>
 						<Route element={<ProtectedRoutes />}>
@@ -38,7 +35,7 @@ function App() {
 						</Route>
 						<Route
 							path="/login"
-							element={<LogIn toggleIsAuth={toggleIsAuth} />}
+							element={<LogIn toggleIsAuth={setIsAuthenticated} />}
 						/>
 						<Route
 							path="/register"

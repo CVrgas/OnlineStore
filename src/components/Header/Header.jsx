@@ -1,10 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
+import TokenService from "../../assets/TokenService";
 
-export default function Header({ isAuthenticated, logout }) {
+export default function Header({ isAuthenticated, setIsAuthenticated }) {
+	const tokenService = new TokenService();
+
+	const navigate = useNavigate();
+
 	const handleLogout = () => {
-		logout();
+		tokenService.removeToken();
+		setIsAuthenticated(false);
+		navigate("/login");
 	};
 
 	return (
