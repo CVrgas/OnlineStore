@@ -17,6 +17,11 @@ export default function Login({ toggleIsAuth }) {
 	}
 
 	async function onSubmit() {
+		const validation = validateForm();
+		if (validation.status === false) {
+			setMessage(validation.message);
+			return;
+		}
 		try {
 			const token = await apiService.login(user);
 			if (token) {
@@ -31,7 +36,16 @@ export default function Login({ toggleIsAuth }) {
 			console.error(error);
 		}
 	}
+	function validateForm() {
+		if (!user.email.includes("@")) {
+			return { status: false, message: "invalid email" };
+		}
+		if (user.password.length <= 4) {
+			return { status: false, message: "password too short" };
+		}
 
+		return { status: true, message: "valid" };
+	}
 	return (
 		<main>
 			<div className="form-container">

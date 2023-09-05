@@ -2,12 +2,9 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 import TokenService from "../../assets/TokenService";
-import some from "../../assets/logo/logo_transparent.png";
 export default function Header({
 	isAuthenticated,
 	setIsAuthenticated,
-	setSearchQuery,
-	search,
 }) {
 	const tokenService = new TokenService();
 
@@ -18,16 +15,6 @@ export default function Header({
 		setIsAuthenticated(false);
 		navigate("/login");
 	};
-	//subbar
-	const [input, setInput] = useState("");
-
-	function handleChange(e) {
-		const searchQuery = e.target.value;
-		if (searchQuery.trim() === "") {
-			search();
-		}
-		setSearchQuery(searchQuery);
-	}
 
 	return (
 		<>

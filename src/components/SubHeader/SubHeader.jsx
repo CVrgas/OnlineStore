@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./SubHeader.module.css";
 
-export default function SubHeader({ setSearchQuery, search }) {
+export default function SubHeader({ setSearchQuery, search, toggleAdding }) {
 	const [input, setInput] = useState("");
 
 	function handleChange(e) {
@@ -28,8 +28,11 @@ export default function SubHeader({ setSearchQuery, search }) {
 					<i className="fa-solid fa-magnifying-glass"></i>
 				</button>
 			</div>
-			<button className={styles.addButton}>
-				<i class="fa-solid fa-plus"></i> New Product
+			<button
+				className={styles.addButton}
+				onClick={toggleAdding}
+			>
+				<i className="fa-solid fa-plus"></i> New Product
 			</button>
 		</div>
 	);

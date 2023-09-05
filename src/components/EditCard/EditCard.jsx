@@ -1,26 +1,17 @@
 import React, { useState } from "react";
-import Styles from "./AddNew.module.css";
+import Styles from "./EditCard.module.css";
 import ProductService from "../../assets/ProductsService";
-import { useNavigate } from "react-router-dom";
 
-export default function AddNew({ toggleAdding }) {
-	const navigate = useNavigate();
+
+export default function EditCard({ productToEdit, toggleToEdit }) {
 	const pService = new ProductService(
 		"https://localhost:7038/OnlineStore/api/product"
 	);
-	const [product, setProduct] = useState({
-		name: "",
-		description: "",
-		brand: "",
-		imagesUrl: [],
-		thumbnail: "",
-		price: 0,
-		stock: 0,
-	});
+	const [product, setProduct] = useState(productToEdit);
 
-	async function addProduct() {
+	async function editProduct() {
 		try {
-			const response = await pService.addData(product);
+			const response = await pService.updateData(productToEdit.id, product);
 			if (response) {
 				window.location.reload(false);
 			}
@@ -37,12 +28,12 @@ export default function AddNew({ toggleAdding }) {
 			<div className={Styles.wrapper}>
 				<button
 					className={Styles.closeBtn}
-					onClick={toggleAdding}
+					onClick={() => toggleToEdit("")}
 				>
 					<i className="fa-solid fa-xmark"></i>
 				</button>
 				<form action="">
-					<h3 className={Styles.header}>Create new product</h3>
+					<h3 className={Styles.header}>Editing product</h3>
 					<hr />
 					<div className={Styles.inputs}>
 						<input
@@ -50,6 +41,8 @@ export default function AddNew({ toggleAdding }) {
 							id="name"
 							name="name"
 							placeholder="name"
+							required
+							value={product.name}
 							onChange={handleChange}
 						/>
 						<textarea
@@ -57,6 +50,8 @@ export default function AddNew({ toggleAdding }) {
 							id="description"
 							cols="30"
 							rows="10"
+							value={product.description}
+							required
 							placeholder="description"
 							onChange={handleChange}
 						></textarea>
@@ -64,6 +59,8 @@ export default function AddNew({ toggleAdding }) {
 							type="text"
 							id="brand"
 							name="brand"
+							value={product.brand}
+							required
 							placeholder="brand"
 							onChange={handleChange}
 						/>
@@ -80,6 +77,8 @@ export default function AddNew({ toggleAdding }) {
 							id="thumbnail"
 							name="thumbnail"
 							placeholder="thumbnail url"
+							value={product.thumbnail}
+							required
 							onChange={handleChange}
 						/>
 
@@ -88,7 +87,9 @@ export default function AddNew({ toggleAdding }) {
 							id="price"
 							name="price"
 							placeholder="price"
+							value={product.price}
 							onChange={handleChange}
+							required
 							step="any"
 							min={0}
 						/>
@@ -97,6 +98,8 @@ export default function AddNew({ toggleAdding }) {
 							id="stock"
 							placeholder="Stock"
 							name="stock"
+							value={product.stock}
+							required
 							onChange={handleChange}
 							min={0}
 						/>
@@ -104,9 +107,9 @@ export default function AddNew({ toggleAdding }) {
 					<div className={Styles.buttons}>
 						<button
 							type="button"
-							onClick={addProduct}
+							onClick={editProduct}
 						>
-							add product
+							Save changes
 						</button>
 					</div>
 				</form>

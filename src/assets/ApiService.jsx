@@ -8,16 +8,15 @@ export default class ApiService {
 		try {
 			const response = await axios.post(`${this.ApiUrl}`, user);
 
-			if (response.status === 404) {
-				throw new Error("email or password invalid");
-			}
-
 			if (response.status === 200 && response.data.token) {
 				return response.data.token;
 			} else {
 				throw new Error("invalid response");
 			}
 		} catch (error) {
+			if (error.response.status === 404) {
+				throw new Error("email or password invalid");
+			}
 			throw new Error(`Login failed: ${error}`);
 		}
 	}

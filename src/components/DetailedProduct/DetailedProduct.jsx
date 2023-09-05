@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Styles from "./DetailedProduct.module.css";
 import ProductService from "../../assets/ProductsService";
+import { useNavigate } from "react-router-dom";
 
-export default function DetailedProduct({ product, unselect }) {
+export default function DetailedProduct({ product, unselect, toEdit }) {
 	const [activeImg, setActiveImg] = useState("");
 	const pService = new ProductService(
 		"https://localhost:7038/OnlineStore/api/product"
@@ -12,6 +13,17 @@ export default function DetailedProduct({ product, unselect }) {
 		const url = e.target.id;
 		setActiveImg(url);
 	};
+	async function deleteData(id) {
+		try {
+			const response = await pService.deleteData(product.id);
+			if (response) {
+				window.location.reload(false);
+			}
+		} catch (error) {
+			console.error("error: ", error.message);
+		}
+	}
+
 	return (
 		<div className={Styles.container}>
 			<div className={Styles.wrapper}>
@@ -50,13 +62,23 @@ export default function DetailedProduct({ product, unselect }) {
 					<small>In stock ({product.stock} available)</small>
 					<hr />
 					<div className={Styles.buttons}>
-						<button className={Styles.editBtn}>Edit</button>
-						<button className={Styles.deleteBtn}>Delete</button>
+						<button
+							className={Styles.editBtn}
+							onClick={() => toEdit(product)}
+						>
+							Edit
+						</button>
+						<button
+							className={Styles.deleteBtn}
+							onClick={deleteData}
+						>
+							Delete
+						</button>
 					</div>
 				</div>
 				<button
 					className={Styles.closeBtn}
-					onClick={unselect}
+					onClick={() => unselect("")}
 				>
 					<i className="fa-solid fa-xmark"></i>
 				</button>

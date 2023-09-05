@@ -1,0 +1,90 @@
+.container {
+	position: fixed;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	backdrop-filter: blur(4px);
+	height: 100%;
+	z-index: 999;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.wrapper {
+	position: relative;
+	padding: 1rem;
+	background-color: var(--white);
+	border-radius: 0.5rem;
+}
+.wrapper .closeBtn {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	padding: 0.1rem 0.4rem;
+	text-align: center;
+	font-size: 1.1rem;
+	border: 2px solid black;
+	background-color: transparent;
+	border-radius: 0.3rem;
+	cursor: pointer;
+}
+.wrapper .closeBtn:hover {
+	background-color: black;
+	color: white;
+}
+.wrapper form .header {
+	color: var(--teal);
+	padding: 1rem;
+	font-size: 1.5rem;
+	font-weight: 500;
+}
+.wrapper .inputs {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+	padding: 1rem;
+}
+.wrapper .inputs input {
+	padding: 0.3rem 0.5rem;
+	font-size: 1.1rem;
+	border: 0;
+	border-bottom: 3px solid var(--orange);
+	max-height: 1rem;
+}
+.wrapper .inputs input::placeholder,
+.wrapper .inputs textarea::placeholder {
+	text-transform: capitalize;
+}
+.wrapper .inputs input[type="number"] {
+	max-width: 5rem;
+	appearance: none;
+	-moz-appearance: textfield;
+}
+.wrapper .inputs input[type="number"]::-webkit-outer-spin-button,
+.wrapper .inputs input[type="number"]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	appearance: none;
+	margin: 0;
+}
+.wrapper .inputs textarea {
+	padding: 0.3rem;
+	font-size: 1.1rem;
+	border: 2px solid var(--orange);
+}
+.wrapper .inputs textarea:focus,
+.wrapper .inputs input:focus {
+	outline: 2px solid var(--cream);
+}
+.wrapper .buttons {
+	display: flex;
+	justify-content: flex-end;
+}
+.wrapper .buttons button {
+	padding: 0.3rem 0.5rem;
+	background-color: var(--teal);
+	color: var(--white);
+	border: 0;
+	text-transform: capitalize;
+	cursor: pointer;
+}

@@ -19,6 +19,8 @@ body {
 main {
 	display: flex;
 	flex-direction: column;
+	justify-content: flex-start;
+	flex: 1;
 }
 footer {
 	background-color: var(--white);

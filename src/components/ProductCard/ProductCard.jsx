@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 import Styles from "./ProductCard.module.css";
 import SubHeader from "../SubHeader/SubHeader";
 
-export default function Card({
-	products,
-	select,
-	setSearchQuery,
-	searchProduct,
-}) {
+export default function Card({ products, select }) {
 	const maxItemPerPage = 8;
 	const totalPages = Math.ceil(products.length / maxItemPerPage);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -19,21 +14,21 @@ export default function Card({
 		setCurrentPage(1); // Set currentPage to 1 when the component mounts or reloads
 	}, [products]);
 
+	function selectProduct(product) {
+		select(product);
+	}
+
 	return (
 		<>
-			<SubHeader
-				setSearchQuery={setSearchQuery}
-				search={searchProduct}
-			></SubHeader>
-
 			<div className={Styles.products}>
 				<div className={Styles.productsList}>
 					{itemToShow.map((product, i) => {
 						return (
 							<div
 								key={product.id}
+								id={product.id}
 								className={Styles.card}
-								onClick={() => select(product)}
+								onClick={() => selectProduct(product)}
 							>
 								<div className={Styles.image}>
 									{product.thumbnail ? (
@@ -71,7 +66,7 @@ export default function Card({
 						onClick={() => setCurrentPage(currentPage - 1)}
 						disabled={currentPage === 1}
 					>
-						<i class="fa-solid fa-chevron-left"></i>
+						<i className="fa-solid fa-chevron-left"></i>
 					</button>
 					<span>
 						Page {currentPage} of {totalPages}
@@ -80,7 +75,7 @@ export default function Card({
 						onClick={() => setCurrentPage(currentPage + 1)}
 						disabled={currentPage === totalPages}
 					>
-						<i class="fa-solid fa-chevron-right"></i>
+						<i className="fa-solid fa-chevron-right"></i>
 					</button>
 				</div>
 			</div>

@@ -1,11 +1,11 @@
 .appHeader {
 	display: flex;
 	justify-content: space-between;
-	padding: 1rem 10%;
+	padding: 0.5rem 10%;
 	align-items: center;
 	background-color: var(--white);
 
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 .appHeader nav ul {
 	display: flex;
@@ -20,11 +20,9 @@
 	color: var(--teal);
 	max-width: 100px;
 	max-height: 50px;
+	font-weight: 600;
 }
-.appHeader .logo img {
-	width: 100%;
-	transform: scale(2);
-}
+
 .appHeader nav ul {
 	display: flex;
 	justify-content: center;

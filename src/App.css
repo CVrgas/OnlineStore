@@ -3,9 +3,6 @@
 	flex-direction: column;
 	height: 100dvh;
 }
-#root main {
-	flex: 1;
-}
 .form-container {
 	display: flex;
 	justify-content: center;
@@ -145,7 +142,6 @@
 	transition: 0.3s;
 	border-radius: 50px;
 }
-
 .form-container form .submit-button i {
 	transform: translateX(-10px);
 	transition: 1s;
@@ -176,7 +172,6 @@
 		scale: 0.5;
 	}
 }
-
 .product-container {
 	display: flex;
 	justify-content: flex-start;
@@ -193,3 +188,4 @@
 		align-items: center;
 	}
 }
+
