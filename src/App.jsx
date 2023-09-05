@@ -7,12 +7,18 @@ import Home from "./pages/Home";
 import ProtectedRoutes from "./ProtectedRoutes";
 import { useEffect, useState } from "react";
 import TokenService from "./services/TokenService";
+import NotFound from "./pages/NotFound";
 
 function App() {
+
+	// control de autenticación
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	// servicio de tokens en cokkies
 	const tokenService = new TokenService();
 
+	// chekea si el token existe al inicio
 	useEffect(() => {
+		
 		const token = tokenService.getToken();
 		if (token) {
 			setIsAuthenticated(true);
@@ -41,6 +47,10 @@ function App() {
 							path="/register"
 							element={<Register />}
 						/>
+						<Route
+							path="*"
+							element={<NotFound />}
+						></Route>
 					</Routes>
 				</Layout>
 			</BrowserRouter>

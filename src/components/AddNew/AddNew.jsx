@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import Styles from "./AddNew.module.css";
 import ProductService from "../../services/ProductsService";
-import { useNavigate } from "react-router-dom";
 
 export default function AddNew({ toggleAdding }) {
+	// create una instancia de ProductService
 	const pService = new ProductService(
 		"https://localhost:7038/OnlineStore/api/product"
 	);
+
+	//define el estado incial de la form
 	const [product, setProduct] = useState({
 		name: "",
 		description: "",
@@ -17,16 +19,22 @@ export default function AddNew({ toggleAdding }) {
 		stock: 0,
 	});
 
+	//funcion que agrega producto
 	async function addProduct() {
+		console.log("x");
 		try {
 			const response = await pService.addData(product);
+
+			// valida si la respuesta existe y es correcta
 			if (response) {
-				window.location.reload(false);
+				window.location.reload(false); // recarga la pagina
 			}
 		} catch (error) {
 			console.error(error);
 		}
 	}
+
+	// funcion que maneja el cambio de valor y actualiza el producto
 	function handleChange(e) {
 		setProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 	}
@@ -40,7 +48,7 @@ export default function AddNew({ toggleAdding }) {
 				>
 					<i className="fa-solid fa-xmark"></i>
 				</button>
-				<form action="">
+				<form>
 					<h3 className={Styles.header}>Create new product</h3>
 					<hr />
 					<div className={Styles.inputs}>
@@ -49,6 +57,7 @@ export default function AddNew({ toggleAdding }) {
 							id="name"
 							name="name"
 							placeholder="name"
+							required
 							onChange={handleChange}
 						/>
 						<textarea
@@ -57,6 +66,7 @@ export default function AddNew({ toggleAdding }) {
 							cols="30"
 							rows="10"
 							placeholder="description"
+							required
 							onChange={handleChange}
 						></textarea>
 						<input
@@ -64,6 +74,7 @@ export default function AddNew({ toggleAdding }) {
 							id="brand"
 							name="brand"
 							placeholder="brand"
+							required
 							onChange={handleChange}
 						/>
 
@@ -87,6 +98,7 @@ export default function AddNew({ toggleAdding }) {
 							id="price"
 							name="price"
 							placeholder="price"
+							required
 							onChange={handleChange}
 							step="any"
 							min={0}
@@ -95,6 +107,7 @@ export default function AddNew({ toggleAdding }) {
 							type="number"
 							id="stock"
 							placeholder="Stock"
+							required
 							name="stock"
 							onChange={handleChange}
 							min={0}
