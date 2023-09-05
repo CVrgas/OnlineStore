@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
-import TokenService from "../../assets/TokenService";
-export default function Header({
-	isAuthenticated,
-	setIsAuthenticated,
-}) {
+import TokenService from "../../services/TokenService";
+
+export default function Header({ isAuthenticated, setIsAuthenticated }) {
 	const tokenService = new TokenService();
 
 	const navigate = useNavigate();

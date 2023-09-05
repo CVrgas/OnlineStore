@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard/ProductCard";
 import DetailedProduct from "../components/DetailedProduct/DetailedProduct";
 import SubHeader from "../components/SubHeader/SubHeader";
-import ProductService from "../assets/ProductsService";
+import ProductService from "../services/ProductsService";
 import AddNew from "../components/AddNew/AddNew";
 import EditCard from "../components/EditCard/EditCard";
 

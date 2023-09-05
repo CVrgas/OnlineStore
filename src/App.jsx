@@ -6,7 +6,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import ProtectedRoutes from "./ProtectedRoutes";
 import { useEffect, useState } from "react";
-import TokenService from "./assets/TokenService";
+import TokenService from "./services/TokenService";
 
 function App() {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);

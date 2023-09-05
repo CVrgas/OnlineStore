@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Styles from "./DetailedProduct.module.css";
-import ProductService from "../../assets/ProductsService";
-import { useNavigate } from "react-router-dom";
+import ProductService from "../../services/ProductsService";
 
 export default function DetailedProduct({ product, unselect, toEdit }) {
 	const [activeImg, setActiveImg] = useState("");

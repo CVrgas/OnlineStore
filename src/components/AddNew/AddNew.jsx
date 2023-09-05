@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import Styles from "./AddNew.module.css";
-import ProductService from "../../assets/ProductsService";
+import ProductService from "../../services/ProductsService";
 import { useNavigate } from "react-router-dom";
 
 export default function AddNew({ toggleAdding }) {
-	const navigate = useNavigate();
 	const pService = new ProductService(
 		"https://localhost:7038/OnlineStore/api/product"
 	);

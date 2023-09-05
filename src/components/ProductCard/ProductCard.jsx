@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Styles from "./ProductCard.module.css";
-import SubHeader from "../SubHeader/SubHeader";
 
 export default function Card({ products, select }) {
 	const maxItemPerPage = 8;

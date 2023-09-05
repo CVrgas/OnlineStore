@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import AuthService from "./assets/AuthService";
+import AuthService from "./services/AuthService";
 
 const ProtectedRoutes = () => {
 	const location = useLocation();

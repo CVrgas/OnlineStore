@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Styles from "./EditCard.module.css";
-import ProductService from "../../assets/ProductsService";
-
+import ProductService from "../../services/ProductsService";
 
 export default function EditCard({ productToEdit, toggleToEdit }) {
 	const pService = new ProductService(

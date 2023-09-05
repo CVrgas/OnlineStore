@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styles from "./SubHeader.module.css";
 
 export default function SubHeader({ setSearchQuery, search, toggleAdding }) {
-	const [input, setInput] = useState("");
-
 	function handleChange(e) {
 		const searchQuery = e.target.value;
 		if (searchQuery.trim() === "") {

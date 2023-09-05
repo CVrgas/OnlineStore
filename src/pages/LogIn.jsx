@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ApiService from "../assets/ApiService";
-import TokenService from "../assets/TokenService";
+import ApiService from "../services/ApiService";
+import TokenService from "../services/TokenService";
 import { useNavigate } from "react-router-dom";
 
 export default function Login({ toggleIsAuth }) {
