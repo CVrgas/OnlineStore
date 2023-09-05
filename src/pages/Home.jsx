@@ -34,6 +34,7 @@ export default function Home() {
 			// pide productos del servidor los cuales contengan el search query.
 			// de no haber query returna todos
 			const response = await pService.fetchData({ param: searchQuery });
+			console.log(response);
 			if (response) {
 				//guarda los productos en la variable productos
 				setProducts(response.reverse());
